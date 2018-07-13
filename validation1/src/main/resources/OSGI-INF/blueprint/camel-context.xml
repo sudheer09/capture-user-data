@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+	xmlns:cxf="http://camel.apache.org/schema/blueprint/cxf"
+	xmlns:cxf-core="http://cxf.apache.org/blueprint/core"
+	xmlns:ext="http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.1.0"
+	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+	xmlns:sec="http://cxf.apache.org/configuration/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="        https://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd        http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd        http://camel.apache.org/schema/blueprint/cxf http://camel.apache.org/schema/blueprint/cxf/camel-cxf.xsd        http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd     http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd        http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd        http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.1.0 http://aries.apache.org/schemas/blueprint-ext/blueprint-ext-1.1.0.xsd         http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
+
+<reference id="hcfseDataSourceDB2.pooled" interface="javax.sql.DataSource"
+  filter="(datasource.name=postgresds)"/>
+  
+	<bean class="user.validation.mapper.DataMapper" id="dataMapper">
+	 <property name = "dataSource" ref="hcfseDataSourceDB2.pooled"/>
+	</bean>
+	<bean class="user.validation.mapper.MyResource" id="resourceClass" />
+	<bean id="loggingFeature" class="org.apache.cxf.feature.LoggingFeature" />
+	<bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+	<cxf:rsServer address="http://localhost:8185/CxfRsRouterTest/resttt"
+		id="myRsServer">
+		<cxf:serviceBeans>
+			<ref component-id="resourceClass" />
+		</cxf:serviceBeans>
+		<cxf:features>
+			<ref component-id="loggingFeature" />
+		</cxf:features>
+		<cxf:providers>
+			<ref component-id="jsonProvider" />
+		</cxf:providers>
+
+
+	</cxf:rsServer>
+	<camelContext id="MyCamelContext"
+		xmlns="http://camel.apache.org/schema/blueprint">
+		<route id="userValidationRoute">
+			<from uri="cxfrs://bean://myRsServer" />
+			<bean id="dataMapper" method="mapRequest" ref="dataMapper" />
+		</route>
+	</camelContext>
+</blueprint>
+
+
