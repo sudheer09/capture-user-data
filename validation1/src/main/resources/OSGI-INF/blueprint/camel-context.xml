@@ -17,7 +17,7 @@
 	<bean class="user.validation.mapper.MyResource" id="resourceClass" />
 	<bean id="loggingFeature" class="org.apache.cxf.feature.LoggingFeature" />
 	<bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
-	<cxf:rsServer address="http://localhost:8185/CxfRsRouterTest/resttt"
+	<cxf:rsServer address="http://localhost:8185/capture/data"
 		id="myRsServer">
 		<cxf:serviceBeans>
 			<ref component-id="resourceClass" />

@@ -4,12 +4,12 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>user</groupId>
-	<artifactId>validation1</artifactId>
+	<groupId>capture</groupId>
+	<artifactId>userdata</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
-	<name>validate user</name>
-	<description>Validates user from database</description>
+	<name>capture user data</name>
+	<description>captures data from user</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -42,6 +42,16 @@
 			<artifactId>camel-core</artifactId>
 			<version>2.15.1</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<!-- 
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency> -->
+
 
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -104,11 +114,11 @@
 				<version>2.4.0</version>
 			</plugin>
 
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>cobertura-maven-plugin</artifactId>
-					<version>2.7</version>
-				</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.7</version>
+			</plugin>
 		</plugins>
 	</build>
 </project>

@@ -16,7 +16,6 @@ public class MyResource {
 	 	@Consumes({"application/json", "application/xml"}) 
 	 	@Produces({"application/json", "application/xml"})
 	    public Response validateUser(UserInfo Req) {
-	 		System.out.println("Request recieved by "+Req.getUserName());
 	        return null;
 	    }
 }
