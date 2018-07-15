@@ -20,7 +20,7 @@ import user.validation.bo.UserInfo;
 public class DataMapperTest {
 
 	
-	//@Test
+	@Test
 	public void mapRequestTestForMandatoryFieldsValidation()
 	{
 		CamelContext ctx = new DefaultCamelContext();
