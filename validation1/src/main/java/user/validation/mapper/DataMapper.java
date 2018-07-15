@@ -14,7 +14,7 @@ public class DataMapper {
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
 	public void setDataSource(DataSource dataSource) throws SQLException {
-		System.out.println("JDBC URL : "+dataSource.getConnection().getMetaData().getURL());
+		//System.out.println("JDBC URL : "+dataSource.getConnection().getMetaData().getURL());
 		this.dataSource = dataSource;
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
